@@ -70,7 +70,7 @@ class City:
 		x_distance = math.fabs(self.x - destination_city.x)
 		y_distance = math.fabs(self.y - destination_city.y)
 		distance = math.sqrt((x_distance * x_distance) + (y_distance * y_distance))
-		return distance;
+		return distance
 
 class CityList:
 

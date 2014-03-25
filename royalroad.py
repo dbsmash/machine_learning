@@ -21,7 +21,7 @@ class FitnessCalculator:
 
 
 class Individual:
-    def __init__(self, init):
+    def __init__(self):
         self.genes = []
         self.gene_length = 64
         self.generate_individual()
@@ -37,7 +37,7 @@ class Individual:
         return self.genes[index]
 
     def set_gene(self, index, to_set):
-        self.genes[index] = to_set;
+        self.genes[index] = to_set
 
     def size(self):
     	return len(self.genes)
@@ -51,7 +51,7 @@ class Population:
             return
 
         for i in xrange(population_size):
-            self.individuals.append(Individual(True))
+            self.individuals.append(Individual())
 
     def add_individual(self, individual):
         self.individuals.append(individual)
@@ -123,7 +123,7 @@ class Algorithm:
     	"""
     	Crosses two Individuals into one new one
     	"""
-        hybrid = Individual(False)
+        hybrid = Individual()
 
         for i in xrange(individual1.gene_length):
             if random.random() <= self.uniformRate:
@@ -148,7 +148,7 @@ class Algorithm:
 
 if __name__ == '__main__':
     algorithm = Algorithm()
-    target_individual = Individual(True)
+    target_individual = Individual()
     fitness_calculator = FitnessCalculator(target_individual.genes)
 
     population = Population(20, True)
