@@ -8,15 +8,15 @@ class FitnessCalculator:
         self.solution = solution
 
     def score_fitness(self, individual):
-    	"""
-    	Compares the genes of a given individual to check them against the target individual, seeing how many match
-    	"""
+        """
+        Compares the genes of a given individual to check them against the target individual, seeing how many match
+        """
         return len([i for i, j in zip(self.solution, individual.genes) if i == j])
 
     def get_max_fitness(self):
-    	"""
-    	Curently hard coded to match Individuals
-    	"""
+        """
+        Curently hard coded to match Individuals
+        """
         return 64
 
 
@@ -40,7 +40,7 @@ class Individual:
         self.genes[index] = to_set
 
     def size(self):
-    	return len(self.genes)
+        return len(self.genes)
 
 
 class Population:
@@ -57,9 +57,9 @@ class Population:
         self.individuals.append(individual)
 
     def get_fittest(self):
-    	"""
-    	Finds the fittest individual in this Population by scoring them all
-    	"""
+        """
+        Finds the fittest individual in this Population by scoring them all
+        """
         fittest = self.individuals[0]
         for individual in self.individuals:
             if fitness_calculator.score_fitness(individual) > fitness_calculator.score_fitness(fittest):
@@ -67,9 +67,9 @@ class Population:
         return fittest
 
     def get_random(self):
-    	"""
-    	Gets a random member of this Population
-    	"""
+        """
+        Gets a random member of this Population
+        """
         return random.choice(self.individuals)
 
     def size(self):
@@ -84,13 +84,13 @@ class Algorithm:
         self.tournament_size = 5
 
     def evolve_population(self, population):
-    	"""
-    	Evolves a given population into a new one
+        """
+        Evolves a given population into a new one
 
-    	It does this by conditionally preserving the fittest individual, and then
-    	crossing over existing Individuals into new ones.  Finally, it may mutate
-    	Individuals based on the Algorithm's mutation_rate.
-    	"""
+        It does this by conditionally preserving the fittest individual, and then
+        crossing over existing Individuals into new ones.  Finally, it may mutate
+        Individuals based on the Algorithm's mutation_rate.
+        """
         new_population = Population(population.size(), False)
         elitism_offset = 0
 
@@ -112,17 +112,17 @@ class Algorithm:
         return new_population
 
     def mutate(self, individual):
-    	"""
-    	Checks to see if a given Individual should be mutated
-    	"""
+        """
+        Checks to see if a given Individual should be mutated
+        """
         for i in xrange(individual.size()):
-        	if random.random() <= self.mutation_rate:
-        		individual.set_gene(i, random.randint(0, 1))
-                
+            if random.random() <= self.mutation_rate:
+                individual.set_gene(i, random.randint(0, 1))
+
     def crossover(self, individual1, individual2):
-    	"""
-    	Crosses two Individuals into one new one
-    	"""
+        """
+        Crosses two Individuals into one new one
+        """
         hybrid = Individual()
 
         for i in xrange(individual1.gene_length):
@@ -134,11 +134,11 @@ class Algorithm:
         return hybrid
 
     def tournament_selection(self, population):
-    	"""
-    	Creates a temporary 'tournament' Population from which to select a strong
-    	individual from.  The tournament Population is generally a subset of the
-    	provided Population.
-    	"""
+        """
+        Creates a temporary 'tournament' Population from which to select a strong
+        individual from.  The tournament Population is generally a subset of the
+        provided Population.
+        """
         tournament = Population(self.tournament_size, False)
         for i in xrange(self.tournament_size):
             tournament.add_individual(population.get_random())
