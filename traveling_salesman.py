@@ -1,5 +1,6 @@
 import math
 import random
+from PIL import Image, ImageDraw
 
 debug = False
 fitness_calculator = None
@@ -54,7 +55,6 @@ class TravelPlan:
 			self.distance += from_city.distance_to(self.cities[0])
 
 		return self.distance
-		
 
 class City:
 
@@ -208,6 +208,19 @@ class Algorithm:
 
         return tournament.get_fittest()
 
+def render_route(cities):
+    im = Image.new('RGBA', (500, 500), (255, 255, 255, 0)) 
+    draw = ImageDraw.Draw(im) 
+    for city in cities:
+        draw.ellipse((city.x-5, city.y-5, city.x+5, city.y+5), fill=(0,0,0))
+    
+
+    from_city = cities[0]
+    for city in cities:
+        draw.line((from_city.x,from_city.y,city.x,city.y), fill=0)
+        from_city = city
+    im.show()
+
 if __name__ == '__main__':
     fitness_calculator = FitnessCalculator()
     algorithm = Algorithm()
@@ -215,10 +228,13 @@ if __name__ == '__main__':
     # build random list of cities
     city_list = CityList()
     city_list.populate_list()
+
     test_route = TravelPlan()
     test_route.set_cities(city_list)
     initial_distance = float(test_route.get_total_distance())
 
+    render_route(city_list.cities)
+        
     population = Population(20, True)
     for i in xrange(population.size()):
     	tp = population.get_individual(i)
@@ -226,10 +242,12 @@ if __name__ == '__main__':
     	tp.randomize()
     	population.add_individual(tp)
 
-    for i in xrange(1, 100):
+    for i in xrange(1, 250):
     	population = algorithm.evolve_population(population)
 
     final_distance = population.get_fittest().get_total_distance()
     print 'Initial distance: ' + str(initial_distance)
     print 'Final distance: ' + str(final_distance)
     print 'Improvement: ' + str(final_distance / initial_distance)
+
+    render_route(population.get_fittest().cities)
