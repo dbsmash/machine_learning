@@ -174,6 +174,7 @@ class Algorithm:
         by switching two elements randomly
         """
         if random.random() <= self.mutation_rate:
+            individual.distance = 0
             index1 = random.randint(0, individual.size() - 1)
             index2 = random.randint(0, individual.size() - 1)
             while index1 == index2:
