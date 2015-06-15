@@ -158,11 +158,6 @@ if __name__ == '__main__':
     while fitness_calculator.score_fitness(population.get_fittest()) != fitness_calculator.get_max_fitness():
         generation_count += 1
         population = algorithm.evolve_population(population)
-        print 'gen %i fitness %i' % (generation_count, fitness_calculator.score_fitness(population.get_fittest()))
+        print 'generation & fitness %i %i' % (generation_count, fitness_calculator.score_fitness(population.get_fittest()))
 
     print 'answer found in generation: ' + str(generation_count)
-    print population.get_fittest().genes
-
-
-
-

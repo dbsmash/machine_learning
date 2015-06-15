@@ -173,5 +173,5 @@ func main() {
 		population = algorithm.evolvePopulation(population)
 		fmt.Println("generation & fitness", generationCount, fitnessCalc.scoreFitness(population.getFittest(fitnessCalc)))
 	}
-	fmt.Println("answer found in generation ", generationCount)
+	fmt.Println("answer found in generation:", generationCount)
 }
