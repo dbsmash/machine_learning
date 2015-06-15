@@ -246,7 +246,7 @@ if __name__ == '__main__':
         tp.randomize()
         population.add_individual(tp)
 
-    for i in xrange(1, 250):
+    for i in xrange(1, 2500):
         population = algorithm.evolve_population(population)
 
     final_distance = population.get_fittest().get_total_distance()
